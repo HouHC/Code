@@ -34,10 +34,18 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Config\log4net.config" />
+    <None Include="Config\log4net.unix.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lib\Circle.cs" />
+    <Compile Include="Lib\Beacon.cs" />
     <Compile Include="Lib\Point.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Using\log4net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,6 +17,10 @@ namespace Positioning.Lib
             Radius = r;
         }
 
+        public Circle(double x,double y,double r):this(new Point(x, y),r)
+        {
+        }
+
         public static List<Point> GetPointsOfIntersection(Circle first,Circle second)
         {
             List<Point> points = new List<Point>();
@@ -45,7 +49,7 @@ namespace Positioning.Lib
                     double xc = xe - ce/(Math.Sqrt(1 + Math.Pow(2,k2)));
                     double yc = ye + k2 * (xc - xe);
 
-                    double xd = xe + ce / (Math.Sqrt(1 + Math.Pow(2, k2))); ;
+                    double xd = xe + ce / (Math.Sqrt(1 + Math.Pow(2, k2)));
                     double yd = ye + k2 * (xd - xe);
                     //加入List
                     points.Add(new Point(xc, yc));

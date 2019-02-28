@@ -1,0 +1,6 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/Positioning/Positioning/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/Positioning/Positioning/obj/Debug/Positioning.csprojAssemblyReference.cache

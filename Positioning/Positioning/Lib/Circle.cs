@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Positioning.Lib
+namespace Templete.Positioning.Lib
 {
     public class Circle
     {
@@ -19,6 +19,11 @@ namespace Positioning.Lib
 
         public Circle(double x,double y,double r):this(new Point(x, y),r)
         {
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Circle({0},{1},{2})",Center.XPosition,Center.YPOsition,Radius);
         }
 
         public static List<Point> GetPointsOfIntersection(Circle first,Circle second)
@@ -78,6 +83,16 @@ namespace Positioning.Lib
             else if (dis > Math.Abs(first.Radius - second.Radius) && dis < (first.Radius + second.Radius))
                 relationship = CircleRelationship.相交;
             return new Tuple<CircleRelationship, double>(relationship,dis);
+        }
+
+        public Point GetNearestPoint(Point p1, Point p2)
+        {
+            return Point.DisOfTwoPoint(p1, this.Center) < Point.DisOfTwoPoint(p2, this.Center) ? p1 : p2;
+        }
+
+        public static Point GetNearestPoint(Point p1,Point p2 ,Circle cir)
+        {
+            return Point.DisOfTwoPoint(p1, cir.Center) < Point.DisOfTwoPoint(p2, cir.Center) ? p1 : p2;
         }
     }
 

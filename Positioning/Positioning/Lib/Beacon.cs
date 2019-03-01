@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Positioning.Lib
+namespace Templete.Positioning.Lib
 {
     public class Beacon
     {

@@ -40,7 +40,9 @@
   <ItemGroup>
     <Compile Include="Lib\Circle.cs" />
     <Compile Include="Lib\Beacon.cs" />
+    <Compile Include="Lib\Logger.cs" />
     <Compile Include="Lib\Point.cs" />
+    <Compile Include="Positioning.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="log4net">

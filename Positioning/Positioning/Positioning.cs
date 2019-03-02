@@ -18,8 +18,20 @@ namespace Templete.Positioning
             List<Tuple<Point, double>> pointList = new List<Tuple<Point, double>>();
             for (int i = 0;i < list.Count - 2; i++)
             {
-                List<Circle> cs = circles.Take(3).Skip(i) as List<Circle>;
-                pointList.Add(GetPointAndWeights(cs));
+                //List<Circle> cs = circles.Take(3).Skip(i) as List<Circle>;
+                //Tuple<Point, double> t = GetPointAndWeights(cs);
+                //if(t != null)
+                //    pointList.Add(t);
+                for (int j = i + 1; j < list.Count - 1; j++)
+                {
+                    List<Circle> cs = new List<Circle>();
+                    cs.Add(list[i]);
+                    cs.Add(list[j]);
+                    cs.Add(list[j+1]);
+                    Tuple<Point, double> t = GetPointAndWeights(cs);
+                    if (t != null)
+                        pointList.Add(t);
+                }
             }
             double x = 0, y = 0;
             double totalWeights = 0;

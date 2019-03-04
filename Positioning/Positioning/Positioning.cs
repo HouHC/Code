@@ -48,6 +48,34 @@ namespace Templete.Positioning
             return p;
         }
 
+        public static double[] GetPosition(params double[] x)
+        {
+            if (x == null || x.Length <= 9)
+            {
+                return null;
+            }
+            else
+            {
+                if ((x.Length % 3) == 0)
+                {
+                    List<Circle> circles = new List<Circle>();
+                    for (int i = 0; i < x.Length;)
+                    {
+                        circles.Add(new Circle(x[i], x[i + 1], x[i + 2]));
+                        i += 3;
+                    }
+                    Point point = GetPosition(circles);
+                    return new double[] { point.XPosition , point.YPOsition};
+
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+        }
+
         private static Tuple<Point, double> GetPointAndWeights(List<Circle> list)
         {
             if (list.Count != 3) return null;
@@ -79,7 +107,7 @@ namespace Templete.Positioning
                             //var p = Circle.GetNearestPoint(plist3[0],plist3[1],list[1]);
                             var p = list[1].GetNearestPoint(plist3[0], plist3[1]);
                             x = (plist1[0].XPosition + plist2[0].XPosition + p.XPosition) / 3;
-                             y = (plist1[0].YPOsition + plist2[0].YPOsition + p.YPOsition) / 3;
+                            y = (plist1[0].YPOsition + plist2[0].YPOsition + p.YPOsition) / 3;
                         }
                     }
                     else                     //第0个圆与第1个圆相切，第1个圆与第2个圆相交

@@ -9,11 +9,18 @@ namespace Templete.Positioning
 {
     public static class Positioning
     {
+
+        /// <summary>
+        /// 获取定位的点
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static Point GetPosition(List<Circle> list)
         {
             if (list == null || list.Count < 3)
                 return null;
             Point p = null;
+            //根据半径排序
             var circles = list.OrderBy(c => c.Radius);
             List<Tuple<Point, double>> pointList = new List<Tuple<Point, double>>();
             for (int i = 0;i < list.Count - 2; i++)
@@ -35,9 +42,10 @@ namespace Templete.Positioning
             }
             double x = 0, y = 0;
             double totalWeights = 0;
+            //加权计算
             for (int i = 0;i < pointList.Count;i++)
             {
-                x += pointList[i].Item1.XPosition * pointList[i].Item2;
+                x += pointList[i].Item1.XPosition * pointList[i].Item2; 
                 y += pointList[i].Item1.YPOsition * pointList[i].Item2;
                 totalWeights += pointList[i].Item2;
             }
@@ -48,6 +56,11 @@ namespace Templete.Positioning
             return p;
         }
 
+        /// <summary>
+        /// 获取定位，返回值为double数组
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double[] GetPosition(params double[] x)
         {
             if (x == null || x.Length <= 9)
@@ -76,6 +89,11 @@ namespace Templete.Positioning
             }
         }
 
+        /// <summary>
+        /// 根据质心定位，求出交点坐标和权值
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns>返回元组</returns>
         private static Tuple<Point, double> GetPointAndWeights(List<Circle> list)
         {
             if (list.Count != 3) return null;

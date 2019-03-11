@@ -2,6 +2,10 @@
 
 namespace Templete.Positioning.Lib
 {
+
+    /// <summary>
+    /// 静态类，日志，log4net
+    /// </summary>
     public static class Log
     {
         public static void WriteInfo(string msg)

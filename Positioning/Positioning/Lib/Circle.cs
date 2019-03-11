@@ -26,6 +26,13 @@ namespace Templete.Positioning.Lib
             return string.Format("Circle({0},{1},{2})",Center.XPosition,Center.YPOsition,Radius);
         }
 
+
+        /// <summary>
+        /// 获取两圆的交点，无交点返回null
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
         public static List<Point> GetPointsOfIntersection(Circle first,Circle second)
         {
             List<Point> points = new List<Point>();
@@ -95,6 +102,13 @@ namespace Templete.Positioning.Lib
         //        relationship = CircleRelationship.相交;
         //    return relationship;
         //}
+
+        /// <summary>
+        /// 判断两圆关系，返回元组，两圆关系和圆心距
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns>返回元组，两圆关系和圆心距</returns>
         public static Tuple<CircleRelationship,double> GetCircleRelationship(Circle first, Circle second)
         {
             double dis = Point.DisOfTwoPoint(first.Center, second.Center);
@@ -106,11 +120,24 @@ namespace Templete.Positioning.Lib
             return new Tuple<CircleRelationship, double>(relationship,dis);
         }
 
+        /// <summary>
+        /// 判断那个点离本身最近
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         public Point GetNearestPoint(Point p1, Point p2)
         {
             return Point.DisOfTwoPoint(p1, this.Center) < Point.DisOfTwoPoint(p2, this.Center) ? p1 : p2;
         }
 
+        /// <summary>
+        /// 判断两点中离圆最近的一点
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="cir"></param>
+        /// <returns></returns>
         public static Point GetNearestPoint(Point p1,Point p2 ,Circle cir)
         {
             return Point.DisOfTwoPoint(p1, cir.Center) < Point.DisOfTwoPoint(p2, cir.Center) ? p1 : p2;

@@ -46,19 +46,22 @@ namespace Templete.Positioning.Lib
                 {
                     //double x1 = t.Item2 - second.Radius;
                     //double x2 = t.Item2 - first.Radius;
-                    double x =  t.Item2 - (second.Radius - first.Radius) / 2.0;
-                    double h = Math.Sqrt(Math.Pow(2,first.Radius) - Math.Pow(2,x));
+                    //double x = t.Item2 - Math.Abs(second.Radius - first.Radius) / 2.0;
+                    var cir = first.Center.XPosition < second.Center.XPosition ? first : second;
+                    double xl = (first.Radius + second.Radius - t.Item2) * 1.5;
+                    double h = Math.Sqrt(Math.Pow(first.Radius,2) - Math.Pow( xl,2));
                     //加入List
-                    points.Add(new Point(first.Center.XPosition + x, h));
-                    points.Add(new Point(first.Center.XPosition + x, -h));
+                    points.Add(new Point(cir.Center.XPosition + xl, h));
+                    points.Add(new Point(cir.Center.XPosition + xl, -h));
                 }
                 else if ((first.Center.YPOsition - second.Center.YPOsition) == 0)
                 {
-                    double y = t.Item2 - (second.Radius - first.Radius) / 2.0;
-                    double l = Math.Sqrt(Math.Pow(2, first.Radius) - Math.Pow(2, y));
+                    var cir = first.Center.YPOsition < second.Center.YPOsition ? first : second;
+                    double yl = (first.Radius + second.Radius - t.Item2) * 1.5;
+                    double l = Math.Sqrt(Math.Pow(first.Radius,2) - Math.Pow(yl,2));
                     //加入List
-                    points.Add(new Point(first.Center.XPosition + l, y));
-                    points.Add(new Point(first.Center.XPosition + l, y));
+                    points.Add(new Point(cir.Center.XPosition + l, cir.Center.YPOsition + yl));
+                    points.Add(new Point(cir.Center.XPosition - l, cir.Center.YPOsition + yl));
                 }
                 else
                 {
@@ -67,8 +70,8 @@ namespace Templete.Positioning.Lib
                     //交点之间连线的斜率
                     double k2 = -(1.0 / k1);
                     //圆心之间连线与焦点之间连线的交点坐标
-                    double xe = first.Center.XPosition + ((Math.Pow(2, first.Radius) - Math.Pow(2, second.Radius) + Math.Pow(2, t.Item2)) / (2 * Math.Pow(2, t.Item2))) * (second.Center.XPosition - first.Center.XPosition);
-                    double ye = first.Center.YPOsition + ((Math.Pow(2, first.Radius) - Math.Pow(2, second.Radius) + Math.Pow(2, t.Item2)) / (2 * Math.Pow(2, t.Item2))) * (second.Center.YPOsition - first.Center.YPOsition);
+                    double xe = first.Center.XPosition + ((Math.Pow(first.Radius,2) - Math.Pow(second.Radius,2) + Math.Pow(t.Item2,2)) / (2 * Math.Pow(t.Item2,2))) * (second.Center.XPosition - first.Center.XPosition);
+                    double ye = first.Center.YPOsition + ((Math.Pow(first.Radius,2) - Math.Pow(second.Radius,2) + Math.Pow(t.Item2,2)) / (2 * Math.Pow(t.Item2,2))) * (second.Center.YPOsition - first.Center.YPOsition);
                     if (t.Item1 == CircleRelationship.相切)
                     {
                         points.Add(new Point(xe, ye)); //两圆相切，则只有此一个交点
@@ -76,12 +79,12 @@ namespace Templete.Positioning.Lib
                     else
                     {
                         //计算出其中一个焦点到圆心之间连线与焦点之间连线的交点的距离
-                        double ce = Math.Pow(2, first.Radius) - Math.Pow(2, (xe - first.Center.XPosition)) - Math.Pow(2, (ye - first.Center.YPOsition));
+                        double ce = Math.Pow(first.Radius,2) - Math.Pow((xe - first.Center.XPosition),2) - Math.Pow((ye - first.Center.YPOsition),2);
                         //两圆交点坐标
-                        double xc = xe - ce / (Math.Sqrt(1 + Math.Pow(2, k2)));
+                        double xc = xe - ce / (Math.Sqrt(1 + Math.Pow(k2,2)));
                         double yc = ye + k2 * (xc - xe);
 
-                        double xd = xe + ce / (Math.Sqrt(1 + Math.Pow(2, k2)));
+                        double xd = xe + ce / (Math.Sqrt(1 + Math.Pow(k2,2)));
                         double yd = ye + k2 * (xd - xe);
                         //加入List
                         points.Add(new Point(xc, yc));

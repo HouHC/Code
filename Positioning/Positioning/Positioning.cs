@@ -40,6 +40,7 @@ namespace Templete.Positioning
                         pointList.Add(t);
                 }
             }
+            if (pointList.Count == 0) return null;
             double x = 0, y = 0;
             double totalWeights = 0;
             //加权计算

@@ -26,7 +26,11 @@ namespace Templete.Positioning.Lib
         public static double DisOfTwoPoint(Point first,Point second)
         {
             if (first != null && second != null)
-                return Math.Sqrt(Math.Pow(2, first.XPosition - second.XPosition) + Math.Pow(2, first.YPOsition - second.YPOsition));
+            {
+                double x2 = Math.Pow(Math.Abs(first.XPosition - second.XPosition),2);
+                double y2 = Math.Pow(Math.Abs(first.YPOsition - second.YPOsition),2);
+                return Math.Sqrt(x2 + y2);
+            }
             else
                 return double.NaN;
         }

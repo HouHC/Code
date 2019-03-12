@@ -32,15 +32,15 @@ namespace Templete.Positioning.Lib
         {
         }
 
-        //根据RSSI信号强度计算出信标到蓝牙网关的距离
-        public static double GetDis(Beacon beacon)
-        {
-            double p = (beacon.A - beacon.RSSI) / (10 * beacon.N);
-            //平面算法求值
-            return Math.Pow(p,10);
-            //三维算法求值
-            //return Math.Sqrt(Math.Pow(2, Math.Pow(p, 10)) - Math.Pow(2,beacon.Height));
-        }
+        ////根据RSSI信号强度计算出信标到蓝牙网关的距离
+        //public static double GetDis(Beacon beacon)
+        //{
+        //    double p = (beacon.A - beacon.RSSI) / (10 * beacon.N);
+        //    //平面算法求值
+        //    //return Math.Pow(p,10);
+        //    //三维算法求值
+        //    //return Math.Sqrt(Math.Pow(2, Math.Pow(p, 10)) - Math.Pow(2,beacon.Height));
+        //}
 
     }
 }

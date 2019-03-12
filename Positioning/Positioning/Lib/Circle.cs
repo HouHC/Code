@@ -39,7 +39,28 @@ namespace Templete.Positioning.Lib
             //获取元组，两圆关系以及两圆之间圆心的距离
             Tuple<CircleRelationship,double> t = GetCircleRelationship(first,second);
             if (t.Item1 == CircleRelationship.相离)
-                return null;
+            {
+                if (Math.Abs(first.Center.XPosition - second.Center.XPosition) == Math.Abs(first.Center.YPOsition - second.Center.YPOsition))
+                {
+                    //var cir1 = first.Center.XPosition < second.Center.XPosition ? first : second;
+                    //var cir2 = first.Center.XPosition > second.Center.XPosition ? first : second;
+                    //double p1 = cir1.Radius * Math.Sqrt(2);
+                    //double p2 = cir1.Radius * Math.Sqrt(2);
+                    //double x = 0.5 * (cir1.Center.XPosition + p1 + cir2.Center.XPosition - p2);
+                    //double y = 0;
+                    //if (cir1.Center.YPOsition > cir2.Center.YPOsition)
+                    //    y = 0.5 * (cir1.Center.YPOsition - p1 + cir2.Center.YPOsition + p2);
+                    //else
+                    //    y = 0.5 * (cir1.Center.YPOsition + p1 + cir2.Center.YPOsition - p2);
+                    double x = 0.5 * (first.Center.XPosition + second.Center.XPosition);
+                    double y = 0.5 * (first.Center.YPOsition + second.Center.YPOsition);
+                    points.Add(new Point(x, y));
+                    points.Add(new Point(x, y));
+
+                }
+                else
+                    return null;
+            }
             else    //求出两圆交点的坐标，若相切则只有一个交点，相交为两个交点
             {
                 if ((first.Center.XPosition - second.Center.XPosition) == 0)
@@ -47,21 +68,25 @@ namespace Templete.Positioning.Lib
                     //double x1 = t.Item2 - second.Radius;
                     //double x2 = t.Item2 - first.Radius;
                     //double x = t.Item2 - Math.Abs(second.Radius - first.Radius) / 2.0;
-                    var cir = first.Center.XPosition < second.Center.XPosition ? first : second;
-                    double xl = (first.Radius + second.Radius - t.Item2) * 1.5;
-                    double h = Math.Sqrt(Math.Pow(first.Radius,2) - Math.Pow( xl,2));
+                    var cir1 = first.Center.YPOsition < second.Center.YPOsition ? first : second;
+                    var cir2 = first.Center.YPOsition > second.Center.YPOsition ? first : second;
+
+                    double yl = 0.5 * (cir1.Radius + t.Item2 - cir2.Radius);
+                    double l = Math.Sqrt(Math.Pow(first.Radius, 2) - Math.Pow(yl, 2));
                     //加入List
-                    points.Add(new Point(cir.Center.XPosition + xl, h));
-                    points.Add(new Point(cir.Center.XPosition + xl, -h));
+                    points.Add(new Point(cir1.Center.XPosition + l, cir1.Center.YPOsition + yl));
+                    points.Add(new Point(cir1.Center.XPosition - l, cir1.Center.YPOsition + yl));
                 }
                 else if ((first.Center.YPOsition - second.Center.YPOsition) == 0)
                 {
-                    var cir = first.Center.YPOsition < second.Center.YPOsition ? first : second;
-                    double yl = (first.Radius + second.Radius - t.Item2) * 1.5;
-                    double l = Math.Sqrt(Math.Pow(first.Radius,2) - Math.Pow(yl,2));
+                    var cir1 = first.Center.XPosition < second.Center.XPosition ? first : second;
+                    var cir2 = first.Center.XPosition > second.Center.XPosition ? first : second;
+
+                    double xl = 0.5 * (cir1.Radius + t.Item2 - cir2.Radius);
+                    double h = Math.Sqrt(Math.Pow(first.Radius, 2) - Math.Pow(xl, 2));
                     //加入List
-                    points.Add(new Point(cir.Center.XPosition + l, cir.Center.YPOsition + yl));
-                    points.Add(new Point(cir.Center.XPosition - l, cir.Center.YPOsition + yl));
+                    points.Add(new Point(cir1.Center.XPosition + xl, cir1.Center.YPOsition + h));
+                    points.Add(new Point(cir1.Center.XPosition + xl, cir1.Center.YPOsition - h));
                 }
                 else
                 {
